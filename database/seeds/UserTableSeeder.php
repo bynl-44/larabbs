@@ -14,7 +14,7 @@ class UserTableSeeder extends Seeder
         factory(\App\Models\User::class, 100)->create();
         $user = \App\Models\User::find(1);
         $user -> name = 'admin';
-        $user -> email = 'admin@123.com';
+        $user -> email = 'zizizig@163.com';
         $user -> password = bcrypt('admin');
         $user -> save();
     }
