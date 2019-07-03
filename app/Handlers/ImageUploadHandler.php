@@ -3,11 +3,13 @@
 
 namespace App\Handlers;
 
+use Intervention\Image\Facades\Image;
+
 class ImageUploadHandler
 {
     protected $allowed_ext = ['png', 'jpg', 'gif', 'jpeg'];
 
-    public function save($file, $folder, $file_prefix)
+    public function save($file, $folder, $file_prefix, $max_width = false)
     {
 //        构建存储文件夹规则，如：uploads/images/avatars/201709/21/
 //        文件夹切割，让查找效率更高
@@ -35,9 +37,38 @@ class ImageUploadHandler
         // 将图片移动到我们的目标存储路径中
         $file->move($upload_path, $filename);
 
+        // 如果限制了图片宽度，就进行裁剪
+        if ($max_width && $extension != 'gif')
+        {
+            // 此类中封装的函数，用于裁剪图片
+            $this->reduceSize("{$upload_path}/{$filename}",$max_width);
+        }
+
         $app_url = config('app.url');
         return [
             'path'=>"{$app_url}/{$folder_name}/{$filename}"
         ];
+    }
+
+    /**
+     * @param string $file_path
+     * @param int $max_width
+     */
+    private function reduceSize(string $file_path, int $max_width)
+    {
+
+        // 先实例化，传参是文件的磁盘物理路径
+        $image = Image::make($file_path);
+
+        // 进行大小调整的操作
+        $image->resize($max_width,null,function ($constraint){
+            // 设定宽度是 $max_width，高度等比例双方缩放
+            $constraint->aspectRatio();
+
+            // 防止裁图时图片尺寸变大
+            $constraint->upsize();
+        });
+
+        $image->save();
     }
 }
