@@ -17,8 +17,30 @@
       <!-- Right Side Of Navbar -->
       <ul class="navbar-nav navbar-right">
         <!-- Authentication Links -->
-        <li class="nav-item"><a class="nav-link" href="#">登录</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">注册</a></li>
+        @guest
+          <li class="nav-item"><a class="nav-link" href="{{route('login')}}">登录</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{route('register')}}">注册</a></li>
+        @else
+          <li class="nav-item dropdown">
+            <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}"
+                   class="img-responsive img-circle" width="30px" height="30px">
+              {{ Auth::user()->name }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a href="{{ route('user.show', Auth::user()) }}" class="dropdown-item">个人中心</a>
+              <a href="{{ route('user.edit', Auth::user()) }}" class="dropdown-item">编辑资料</a>
+              <div href="" class="dropdown-divider"></div>
+              <a href="" class="dropdown-item" id="logout">
+                <form action="{{route('logout')}}" method="post">
+                  {{ csrf_field() }}
+                  <button class="btn btn-block btn-danger" type="submit" name="button">退出</button>
+                </form>
+              </a>
+            </div>
+          </li>
+        @endguest
       </ul>
     </div>
   </div>
