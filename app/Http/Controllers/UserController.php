@@ -5,11 +5,23 @@ namespace App\Http\Controllers;
 use App\Handlers\ImageUploadHandler;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
+
+    /**
+     * UserController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', [
+            'except' => ['show']
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -57,9 +69,12 @@ class UserController extends Controller
      *
      * @param User $user
      * @return Response
+     * @throws AuthorizationException
      */
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
+
         return view('user.edit', compact('user'));
     }
 
@@ -70,13 +85,16 @@ class UserController extends Controller
      * @param ImageUploadHandler $uploadHandler
      * @param User $user
      * @return Response
+     * @throws AuthorizationException
      */
     public function update(UserRequest $request, ImageUploadHandler $uploadHandler, User $user)
     {
+        $this->authorize('update', $user);
+
         $data = $request->all();
 
         if ($request->avatar) {
-            $result = $uploadHandler->save($request->avatar, 'avatars', $user->id,416);
+            $result = $uploadHandler->save($request->avatar, 'avatars', $user->id, 416);
             if ($result) {
                 $data['avatar'] = $result['path'];
             }
