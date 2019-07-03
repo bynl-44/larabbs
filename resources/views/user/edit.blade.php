@@ -13,7 +13,7 @@
           </h4>
         </div>
         <div class="card-body">
-          <form action="{{ route('user.update', Auth::user()) }}" method="post">
+          <form action="{{ route('user.update', Auth::user()) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('put')
             @include('shared._error')
@@ -30,6 +30,14 @@
               <textarea type="text" name="introduction" id="introduction-field" class="form-control" rows="3" placeholder="" aria-describedby="helpId">
 {{ old('introduction', $user->introduction) }}
             </textarea>
+            </div>
+            <div class="form-group mb-4">
+              <label for="" class="avatar-label">用户头像</label>
+              <input type="file" name="avatar" id="" class="form-control-file">
+              @if ($user->avatar)
+                <br>
+                <img src="{{ $user->avatar }}" alt="" class="img-thumbnail img-responsive" width="200px">
+              @endif
             </div>
             <div class="well well-sm">
               <button type="submit" class="btn btn-primary">保存</button>
