@@ -2,20 +2,38 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+/**
+ * @property int|null user_id
+ * @property mixed excerpt
+ * @property mixed body
+ */
 class Topic extends Model
 {
-    protected $fillable = ['title', 'body', 'user_id', 'category_id', 'reply_count', 'view_count', 'last_reply_user_id', 'order', 'excerpt', 'slug'];
+    protected $fillable = ['title', 'body', 'category_id', 'excerpt', 'slug'];
 
+    /**
+     * @return BelongsTo
+     */
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @param $query
+     * @param $order
+     * @return mixed
+     */
     public function scopeWithOrder($query, $order)
     {
         // 不同的排序，使用不同的数据读取逻辑
@@ -31,12 +49,20 @@ class Topic extends Model
         return $query->with('user', 'category');
     }
 
+    /**
+     * @param $query
+     * @return mixed
+     */
     public function scopeRecent($query)
     {
         // 按照创建时间排序
         return $query->orderBy('created_at', 'desc');
     }
 
+    /**
+     * @param $query
+     * @return mixed
+     */
     public function scopeRecentReplied($query)
     {
         // 当话题有新回复时，我们将编写逻辑来更新话题模型的 reply_count 属性，
