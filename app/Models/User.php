@@ -7,6 +7,9 @@ use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * @property mixed id
+ */
 class User extends Authenticatable implements MustVerifyEmailContract
 {
     use Notifiable, MustVerifyEmailTrait;
@@ -41,5 +44,16 @@ class User extends Authenticatable implements MustVerifyEmailContract
     public function topics()
     {
         return $this->hasMany(Topic::class);
+    }
+
+    /**
+     * 权限控制
+     *
+     * @param $model
+     * @return bool
+     */
+    public function isAuthorOf($model)
+    {
+        return $this->id == $model->user_id;
     }
 }

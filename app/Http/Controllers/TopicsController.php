@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Handlers\ImageUploadHandler;
 use App\Models\Category;
 use App\Models\Topic;
+use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -79,14 +81,25 @@ class TopicsController extends Controller
         return redirect()->route('topics.show', $topic)->with('success', '更新成功！');
     }
 
+    /**
+     * @param Topic $topic
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     * @throws Exception
+     */
     public function destroy(Topic $topic)
     {
         $this->authorize('destroy', $topic);
         $topic->delete();
 
-        return redirect()->route('topics.index')->with('message', 'Deleted successfully.');
+        return redirect()->route('topics.index')->with('success', '删除成功！');
     }
 
+    /**
+     * @param Request $request
+     * @param ImageUploadHandler $uploadHandler
+     * @return array
+     */
     public function uploadImage(Request $request, ImageUploadHandler $uploadHandler)
     {
         // 初始化返回数据，默认是失败的
