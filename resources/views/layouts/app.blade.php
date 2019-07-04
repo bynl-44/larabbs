@@ -2,6 +2,7 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
   <title>@yield('title', 'LaraBBS') - Laravel 进阶教程</title>
+  <meta name="description" content="@yield('description', 'LaraBBS 爱好者社区')">
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
