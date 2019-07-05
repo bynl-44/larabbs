@@ -12,7 +12,7 @@ class ReplyRequest extends Request
             case 'POST':
             {
                 return [
-                    // CREATE ROLES
+                    'content' => 'required|min:2'
                 ];
             }
             // UPDATE
@@ -28,14 +28,14 @@ class ReplyRequest extends Request
             default:
             {
                 return [];
-            };
+            }
         }
     }
 
     public function messages()
     {
         return [
-            // Validation messages
+
         ];
     }
 }
