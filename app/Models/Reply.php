@@ -7,6 +7,8 @@ namespace App\Models;
  * @property int|null user_id
  * @property mixed topic_id
  * @property mixed topic
+ * @property mixed id
+ * @property mixed user
  */
 class Reply extends Model
 {
