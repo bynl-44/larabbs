@@ -13,10 +13,11 @@ class TopicReplied extends Notification
     use Queueable;
 
     public $reply;
+
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param Reply $reply
      */
     public function __construct(Reply $reply)
     {
@@ -62,7 +63,7 @@ class TopicReplied extends Notification
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
     public function toMail($notifiable)
     {
