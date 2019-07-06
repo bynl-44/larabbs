@@ -59,11 +59,11 @@
                   管理后台
                 </a>
               @endcan
-              <a href="{{ route('user.show', Auth::user()) }}" class="dropdown-item">
+              <a href="{{ route('users.show', Auth::user()) }}" class="dropdown-item">
                 <i class="far fa-user mr-2"></i>
                 个人中心
               </a>
-              <a href="{{ route('user.edit', Auth::user()) }}" class="dropdown-item">
+              <a href="{{ route('users.edit', Auth::user()) }}" class="dropdown-item">
                 <i class="far fa-edit mr-2"></i>
                 编辑资料
               </a>

@@ -31,12 +31,12 @@
         <div class="card-body">
           <ul class="nav nav-tabs">
             <li class="nav-item">
-              <a href="{{ route('user.show', $user) }}" class="nav-link bg-transparent {{ active_class(if_query('tab', null)) }}">
+              <a href="{{ route('users.show', $user) }}" class="nav-link bg-transparent {{ active_class(if_query('tab', null)) }}">
                 Ta 的话题
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('user.show', ['user' => $user, 'tab' => 'replies']) }}" class="nav-link bg-transparent {{ active_class(if_query('tab', 'replies')) }}">
+              <a href="{{ route('users.show', ['user' => $user, 'tab' => 'replies']) }}" class="nav-link bg-transparent {{ active_class(if_query('tab', 'replies')) }}">
                 Ta 的回复
               </a>
             </li>
