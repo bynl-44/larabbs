@@ -12,25 +12,29 @@
 
   <!-- Style -->
   <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-  
+
   @yield('styles')
-  
+
 </head>
 <body>
-  <div id="app" class="{{ route_class() }}-page">
+<div id="app" class="{{ route_class() }}-page">
 
-    @include('layouts._header')
+  @include('layouts._header')
 
-    <div class="container">
+  <div class="container">
 
-      @include('shared._messages')
-      
-      @yield('content')
+    @include('shared._messages')
 
-    </div>
-    
-    @include('layouts._footer')
+    @yield('content')
+
   </div>
+
+  @include('layouts._footer')
+</div>
+
+@if(app()->isLocal())
+  @include('sudosu::user-selector')
+@endif
 
 <!-- Optional JavaScript -->
 <script src="{{ mix('js/app.js') }}"></script>
