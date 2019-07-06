@@ -53,6 +53,12 @@
               {{ Auth::user()->name }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              @can('manage_contents')
+                <a href="{{ url(config('administrator.uri')) }}" class="dropdown-item">
+                  <i class="far fa-tachometer-alt mr-2"></i>
+                  管理后台
+                </a>
+              @endcan
               <a href="{{ route('user.show', Auth::user()) }}" class="dropdown-item">
                 <i class="far fa-user mr-2"></i>
                 个人中心
