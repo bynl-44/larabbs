@@ -2,13 +2,13 @@
   @foreach($replies as $index => $reply)
     <li class="media" name="reply{{ $reply->id }}" id="reply{{ $reply->id }}">
       <div class="media-left">
-        <a href="{{ route('user.show', $reply->user) }}">
+        <a href="{{ route('users.show', $reply->user) }}">
           <img src="{{ $reply->user->avatar }}" alt="{{ $reply->user->name }}" class="media-object img-thumbnail mr-3" style="width:48px; height: 48px;">
         </a>
       </div>
       <div class="media-body">
         <div class="media-heading mt-0 mb-1 text-secondary">
-          <a href="{{ route('user.show', $reply->user) }}" title="{{ $reply->user->name }}">
+          <a href="{{ route('users.show', $reply->user) }}" title="{{ $reply->user->name }}">
             {{ $reply->user->name }}
           </a>
           <span class="text-secondary"> · </span>

@@ -3,7 +3,7 @@
     @foreach($topics as $topic)
       <li class="media">
         <div class="media-left">
-          <a href="{{ route('user.show', [$topic->user]) }}">
+          <a href="{{ route('users.show', $topic->user) }}">
             <img class="media-object img-thumbnail mr-3" src="{{ $topic->user->avatar }}"
                  title="{{ $topic->user->name }}"
                  style="width: 52px; height: 52px;" alt="">
@@ -22,7 +22,7 @@
               {{ $topic->category->name }}
             </a>
             <span> • </span>
-            <a href="{{ route('user.show', $topic->user) }}" class="text-secondary" title="{{ $topic->user->name }}">
+            <a href="{{ route('users.show', $topic->user) }}" class="text-secondary" title="{{ $topic->user->name }}">
               <i class="far fa-user"></i>
               {{ $topic->user->name }}
             </a>

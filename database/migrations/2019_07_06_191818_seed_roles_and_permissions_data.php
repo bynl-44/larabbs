@@ -47,7 +47,7 @@ class SeedRolesAndPermissionsData extends Migration
         app(Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 
         // 清空所有数据表数据
-        $tableNames = config('permission.table_name');
+        $tableNames = config('permission.table_names');
 
         Model::unguard();
         DB::table($tableNames['role_has_permissions'])->delete();

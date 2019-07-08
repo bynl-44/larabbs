@@ -13,7 +13,7 @@
           </h4>
         </div>
         <div class="card-body">
-          <form action="{{ route('user.update', Auth::user()) }}" method="post" enctype="multipart/form-data">
+          <form action="{{ route('users.update', Auth::user()) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('put')
             @include('shared._error')
