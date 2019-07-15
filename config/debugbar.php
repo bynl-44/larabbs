@@ -14,11 +14,11 @@ return [
      |
      */
 
-//    'enabled' => env('DEBUGBAR_ENABLED', null),
-    'enabled'=>env('APP_DEBUG',false),
-    'except' => [
-        'telescope*'
-    ],
+    'enabled' => env('DEBUGBAR_ENABLED', false),
+//    'enabled'=>env('APP_DEBUG',false),
+//    'except' => [
+//        'telescope*'
+//    ],
 
     /*
      |--------------------------------------------------------------------------
