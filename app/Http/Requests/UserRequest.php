@@ -4,6 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property mixed verification_key
+ * @property mixed verification_code
+ */
 class UserRequest extends FormRequest
 {
     /**
