@@ -28,3 +28,4 @@ class CaptchasController extends Controller
         return $this->response->array($result)->setStatusCode(201);
     }
 }
+
