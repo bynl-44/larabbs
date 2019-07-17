@@ -16,6 +16,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property mixed id
  * @property int notification_count
  * @property mixed unreadNotifications
+ * @method static create(array $array)
+ * @method static where(string $string, $unionid)
  */
 class User extends Authenticatable implements MustVerifyEmailContract
 {
@@ -33,7 +35,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
      * @var array
      */
     protected $fillable = [
-        'name','phone', 'email', 'password','introduction','avatar'
+        'name', 'phone', 'email', 'password', 'introduction', 'avatar', 'weixin_openid', 'weixin_unionid'
     ];
 
     /**
@@ -78,13 +80,12 @@ class User extends Authenticatable implements MustVerifyEmailContract
     public function notify($instance)
     {
         // 如果要通知的人是当前用户，就不必通知了！
-        if ($this->id == Auth::id()){
+        if ($this->id == Auth::id()) {
             return;
         }
 
         // 只有数据库类型通知才需提醒，直接发送 Email 或者其他的都 Pass
-        if (method_exists($instance, 'toDatabase'))
-        {
+        if (method_exists($instance, 'toDatabase')) {
             $this->increment('notification_count');
         }
 
@@ -101,7 +102,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
     public function setPasswordAttribute($value)
     {
         // 如果值的长度等于 60，即认为是已经做过加密的情况
-        if (strlen($value) != 60){
+        if (strlen($value) != 60) {
 
             // 不等于 60，做密码加密处理
             $value = bcrypt($value);
@@ -113,7 +114,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
     public function setAvatarAttribute($path)
     {
         // 如果不是 `http` 子串开头，那就是从后台上传的，需要补全 URL
-        if (!Str::startsWith($path, 'http')){
+        if (!Str::startsWith($path, 'http')) {
             // 拼接完整的 URL
             $path = config('app.url') . '/uploads/images/avatars/' . $path;
         }
