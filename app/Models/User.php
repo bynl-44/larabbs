@@ -11,6 +11,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * @property mixed id
@@ -19,7 +20,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static create(array $array)
  * @method static where(string $string, $unionid)
  */
-class User extends Authenticatable implements MustVerifyEmailContract
+class User extends Authenticatable implements MustVerifyEmailContract, JWTSubject
 {
     use LastActivedAtHelper;
     use ActiveUserHelper;
@@ -120,5 +121,25 @@ class User extends Authenticatable implements MustVerifyEmailContract
         }
 
         $this->attributes['avatar'] = $path;
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }
