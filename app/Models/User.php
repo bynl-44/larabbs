@@ -17,6 +17,16 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property mixed id
  * @property int notification_count
  * @property mixed unreadNotifications
+ * @property mixed name
+ * @property mixed email
+ * @property mixed avatar
+ * @property mixed introduction
+ * @property mixed phone
+ * @property mixed weixin_unionid
+ * @property mixed weixin_openid
+ * @property mixed last_actived_at
+ * @property mixed created_at
+ * @property mixed updated_at
  * @method static create(array $array)
  * @method static where(string $string, $unionid)
  */
