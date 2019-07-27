@@ -9,6 +9,8 @@ namespace App\Models;
  * @property mixed topic
  * @property mixed id
  * @property mixed user
+ * @property mixed created_at
+ * @property mixed updated_at
  */
 class Reply extends Model
 {
