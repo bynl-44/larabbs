@@ -13,6 +13,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed id
  * @property mixed reply_count
  * @property mixed replies
+ * @property mixed category_id
+ * @property mixed view_count
+ * @property mixed last_reply_user_id
+ * @property mixed created_at
+ * @property mixed updated_at
  */
 class Topic extends Model
 {
