@@ -10,7 +10,11 @@ use App\Observers\LinkObserver;
 use App\Observers\ReplyObserver;
 use App\Observers\TopicObserver;
 use App\Observers\UserObserver;
+use Dingo\Api\Facade\API;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\ServiceProvider;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +28,14 @@ class AppServiceProvider extends ServiceProvider
         if (app()->isLocal()){
             $this->app->register(\VIACreative\SudoSu\ServiceProvider::class);
         }
+
+        API::error(function (NotFoundHttpException $exception){
+            abort(404);
+        });
+
+        API::error(function (AuthorizationException $exception) {
+            abort(403, $exception->getMessage());
+        });
     }
 
     /**
