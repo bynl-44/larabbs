@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\ChangeLocale;
 use App\Http\Middleware\CheckForMaintenanceMode;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\EnsureEmailIsVerified;
@@ -107,6 +108,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = array(
+        # 接口语言设置
+        'change-locale' => ChangeLocale::class,
+
         # 只有登录用户才能访问，我们在控制器的构造方法中大量使用
         'auth' => Authenticate::class,
 
