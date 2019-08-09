@@ -12,9 +12,8 @@ use App\Observers\TopicObserver;
 use App\Observers\UserObserver;
 use Dingo\Api\Facade\API;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\ServiceProvider;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\VIACreative\SudoSu\ServiceProvider::class);
         }
 
-        API::error(function (NotFoundHttpException $exception){
+        API::error(function (ModelNotFoundException $exception){
             abort(404);
         });
 
